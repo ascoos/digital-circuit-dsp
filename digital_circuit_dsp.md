@@ -1,5 +1,7 @@
 # Digital Signal Processing Pipeline – DSP Case Study
 
+> Case Study Code: ASCOOS-OS-CASESTUDY-SEC02786
+
 This case study demonstrates how **Ascoos OS** and the  
 **`TDigitalCircuitHandler`** class implement a complete digital signal processing (DSP) pipeline in pure PHP, without external libraries.
 
