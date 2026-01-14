@@ -124,7 +124,7 @@
 
 ## Προαπαιτούμενα
 
-1. PHP ≥ 8.3  
+1. PHP ≥ 8.3
 2. Εγκατεστημένο το **Ascoos OS** ή το **AWES 26 Pro**  
 3. Ενεργοποιημένες οι κλάσεις `TDigitalCircuitHandler`, `TCircuitHandler` και `TElectronicsHandler` μέσω της εφαρμογής `Extras Classes Manager`.  
 4. Πρόσβαση στα paths:

@@ -124,7 +124,7 @@ This file includes:
 
 ## Requirements
 
-1. PHP ≥ 8.3  
+1. PHP ≥ 8.3
 2. Installed **Ascoos OS** or **AWES 26 Pro**  
 3. Enabled classes `TDigitalCircuitHandler`, `TCircuitHandler`, and `TElectronicsHandler` via the **Extras Classes Manager**  
 4. Access to:
