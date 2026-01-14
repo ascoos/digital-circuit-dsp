@@ -1,7 +1,7 @@
 <?php
 /**
  * @ASCOOS-NAME        : Ascoos OS
- * @ASCOOS-VERSION     : 26.0.0
+ * @ASCOOS-VERSION     : 1.0.0
  * @ASCOOS-SUPPORT     : support@ascoos.com
  * @ASCOOS-BUGS        : https://issues.ascoos.com
  *
@@ -35,8 +35,8 @@ try {
     $dHandler = new TDigitalCircuitHandler([], $properties);
 
     // ────────────────────────────────────────────────
-    // 1. Test signal generation (clean + noisy)
-    //    Δημιουργία δοκιμαστικού σήματος (καθαρό + θορυβώδες)
+    // 1. <English> Test signal generation (clean + noisy)
+    //    <Greek> Δημιουργία δοκιμαστικού σήματος (καθαρό + θορυβώδες)
     // ────────────────────────────────────────────────
     $fs = 8000.0;   // Sampling frequency (Hz)
     $N  = 1024;     // Number of samples (power-of-2 for FFT)
@@ -67,8 +67,8 @@ try {
     }
 
     // ────────────────────────────────────────────────
-    // 2. FIR low-pass filtering (3-tap moving average)
-    //    FIR low-pass φιλτράρισμα (3-tap κινούμενος μέσος)
+    // 2. <English> FIR low-pass filtering (3-tap moving average)
+    //    <Greek> FIR low-pass φιλτράρισμα (3-tap κινούμενος μέσος)
     // ────────────────────────────────────────────────
     $firCoeffs   = [0.25, 0.5, 0.25]; // Simple triangular FIR
     $firFiltered = $dHandler->applyFIRFilter($firCoeffs, $noisySignal);
@@ -78,8 +78,8 @@ try {
     $firDelaySeconds = $firDelaySamples / $fs;
 
     // ────────────────────────────────────────────────
-    // 3. IIR biquad low-pass Butterworth (2nd order @ 1800 Hz)
-    //    IIR biquad low-pass Butterworth (2ης τάξης @ 1800 Hz)
+    // 3. <English> IIR biquad low-pass Butterworth (2nd order @ 1800 Hz)
+    //    <Greek> IIR biquad low-pass Butterworth (2ης τάξης @ 1800 Hz)
     // ────────────────────────────────────────────────
     $fc = 1800.0;                 // Cutoff frequency
     $Q  = 1 / sqrt(2);            // ≈0.7071 → Butterworth
@@ -92,8 +92,8 @@ try {
     $iirDelaySeconds = $iirDelaySamples / $fs;
 
     // ────────────────────────────────────────────────
-    // 4. Hann-windowed FFT analysis (reducing spectral leakage)
-    //    Ανάλυση FFT με παράθυρο Hann (μείωση spectral leakage)
+    // 4. <English> Hann-windowed FFT analysis (reducing spectral leakage)
+    //    <Greek> Ανάλυση FFT με παράθυρο Hann (μείωση spectral leakage)
     // ────────────────────────────────────────────────
     $hannWindow = [];
     for ($i = 0; $i < $N; $i++) {
@@ -124,8 +124,8 @@ try {
     $peakFreq = $fftFreqs[$peakIdx] ?? 0.0;
 
     // ────────────────────────────────────────────────
-    // 5. SNR estimation (input vs FIR vs IIR)
-    //    Εκτίμηση SNR (είσοδος vs FIR vs IIR)
+    // 5. <English> SNR estimation (input vs FIR vs IIR)
+    //    <Greek> Εκτίμηση SNR (είσοδος vs FIR vs IIR)
     // ────────────────────────────────────────────────
     $snrInput = $dHandler->SNRdB($cleanSignal, $noisySignal); // SNR before filtering
     $snrFIR   = $dHandler->SNRdB($cleanSignal, $firFiltered); // SNR after FIR
@@ -135,8 +135,8 @@ try {
     $snrIirGain = $snrIIR - $snrInput;
 
     // ────────────────────────────────────────────────
-    // 5b. THD, SINAD, ENOB estimation (from FFT)
-    //     Εκτίμηση THD, SINAD, ENOB από FFT
+    // 5b. <English> THD, SINAD, ENOB estimation (from FFT)
+    //     <Greek> Εκτίμηση THD, SINAD, ENOB από FFT
     // ────────────────────────────────────────────────
     $dspMetrics = $dHandler->estimateThdSinadEnob($fftFreqs, $fftMags, 440.0, 5, 1.5);
 
@@ -145,8 +145,8 @@ try {
     $enob    = $dspMetrics['enob_bits'];
 
     // ────────────────────────────────────────────────
-    // 6. Console summary of key results
-    //    Περίληψη βασικών αποτελεσμάτων στην κονσόλα
+    // 6. <English> Console summary of key results
+    //    <Greek> Περίληψη βασικών αποτελεσμάτων στην κονσόλα
     // ────────────────────────────────────────────────
     echo "DSP Simulation Results / Αποτελέσματα DSP\n";
     echo "──────────────────────────────────────────\n";
@@ -174,8 +174,8 @@ try {
     echo "IIR biquad coeffs     : " . json_encode($biquadCoeffs, JSON_NUMERIC_CHECK) . "\n\n";
 
     // ────────────────────────────────────────────────
-    // 7. Export full data to JSON
-    //    Εξαγωγή πλήρων δεδομένων σε JSON
+    // 7. <English> Export full data to JSON
+    //    <Greek> Εξαγωγή πλήρων δεδομένων σε JSON
     // ────────────────────────────────────────────────
     $jsonExportPath = $AOS_TMP_DATA_PATH . '/signal_dsp_demo.json';
 
@@ -243,8 +243,8 @@ try {
     echo "JSON results exported to: $jsonExportPath\n";
 
     // ────────────────────────────────────────────────
-    // 8. Export selected data to CSV (FFT spectrum & time-domain)
-    //    Εξαγωγή επιλεγμένων δεδομένων σε CSV (φάσμα FFT & χρονικό πεδίο)
+    // 8. <English> Export selected data to CSV (FFT spectrum & time-domain)
+    //    <Greek> Εξαγωγή επιλεγμένων δεδομένων σε CSV (φάσμα FFT & χρονικό πεδίο)
     // ────────────────────────────────────────────────
 
     // 8a. FFT spectrum CSV
@@ -294,8 +294,8 @@ try {
     echo "Time-domain signals exported to: $timeCsvPath\n";
 
     // ────────────────────────────────────────────────
-    // 9. Logging summary
-    //    Σύνοψη στο log
+    // 9. <English> Logging summary
+    //    <Greek> Σύνοψη στο log
     // ────────────────────────────────────────────────
     $dHandler->logger?->log(
         sprintf(
@@ -329,6 +329,10 @@ try {
         );
     }
 } finally {
+    // ────────────────────────────────────────────────
+    // 10. <English> Resources Release
+    //     <Greek> Απελευθέρωση πόρων
+    // ────────────────────────────────────────────────
     if (isset($dHandler)) {
         $dHandler->Free();
     }
